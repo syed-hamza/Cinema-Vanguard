@@ -1,0 +1,39 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="content-wrapper">
+            <div class="content-header" id="head"></div>
+            <div class="content container-fluid">
+                <div class="row">
+                    <div class="col-md-4" id="img_holder">
+                        {{!-- Image holder --}}
+                    </div>
+                    <div class="col-md-8" id="data_holder">
+                        <div class="rounded p-3 border">
+                            <h3 class="text-primary">Details</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item border-0">
+                                    <b>Duration:</b><b id="duration"></b>
+                                </li>
+                                <!-- You can add more items as needed -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- Additional content if needed -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/movie.js"></script>
+<div id="name-data" data-name="{{name}}"></div>
+</body>
