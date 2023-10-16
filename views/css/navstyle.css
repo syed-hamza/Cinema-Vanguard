@@ -1,0 +1,28 @@
+body{
+    margin:0;
+    padding:0;
+    background-color: rgb(50, 29, 4);
+  }
+ 
+  
+
+  nav ul {
+    list-style: none; /* Remove list bullets */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Make the items flex containers */
+  }
+  
+  nav li {
+    margin-right: 30px; 
+    font-size: larger;
+  }
+  
+ 
+
+  .navbar-brand .highlight {
+    color: #FF5733; /* Change the color to your preference */
+    font-size: 1.2em; /* Adjust the font size as needed */
+  }
+  
+  
+  
