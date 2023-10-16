@@ -8,6 +8,11 @@ async function start() {
         console.error(error);
     }
 }
+async function get_img(id){
+    const response = await fetch(`/sqlimages/${id}`)
+    const data = await response.json();
+    return data[0].img;
+}
 
 async function getMovieData(name) {
     try {
@@ -22,7 +27,6 @@ async function getMovieData(name) {
 
 async function generateData(details) {
     details = details[0];
-    console.log(details);
     const head = document.getElementById("head");
     const imgh = document.getElementById("img_holder");
     const dur = document.getElementById("duration");
@@ -32,9 +36,9 @@ async function generateData(details) {
     var h = document.createElement('h1');
     h.innerText = details.name;
     head.appendChild(h);
-
     var img = document.createElement('img');
-    img.src = "/images/shah.jpg";
+    path = await get_img(details.mov_id);
+    img.src = `/images/${path}`;
     img.style.maxWidth = "100%";
     imgh.appendChild(img);
 

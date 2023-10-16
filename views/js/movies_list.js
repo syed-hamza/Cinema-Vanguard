@@ -21,12 +21,16 @@ async function generatemovieList(search_val) {
       throw error; // Optionally rethrow the error if needed
     }
   }
-
-function get_block(data) {
+async function get_img(id){
+    const response = await fetch(`/sqlimages/${id}`)
+    const data = await response.json();
+    return data[0].img;
+}
+function get_block(data,path) {
     return `
         <div class="card" style="width: 18rem;">
             <a href="movie/${data.title}">
-            <img class="card-img-top" src="/images/shah.jpg" alt="Card image cap">
+            <img class="card-img-top" src="/images/${path}" alt="Card image cap">
             </a>
             <div class="card-body">
             <h5 class="card-title">${data.title}</h5>
@@ -38,10 +42,11 @@ function get_block(data) {
 }
 
 
-function generateBlocks(data) {
+async function generateBlocks(data) {
     const bd = document.getElementById("movie_card_row");
     for (const obj of data) {
-        const code = get_block(obj);
+        path = await get_img(obj.mov_id);
+        const code = get_block(obj,path);
         const col = document.createElement('div');
         col.className = "col-md-4"; // Adjust the column size as per your layout needs (e.g., col-md-4 for 3 columns in a row)
         col.innerHTML = code;
