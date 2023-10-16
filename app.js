@@ -1,4 +1,3 @@
-//by bubu
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
@@ -25,11 +24,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.render('home');
 });
-app.get('/movies', (req, res) => {
-    res.render('movies');
-});
-app.get('/actors', (req, res) => {
-    res.render('actors');
+app.get(/^\/movies(?:\/(\w+))?$/, (req, res) => {
+    const name = req.params[0] || null; // Default value if "name" is not provided
+    res.render('movies', { name });
+  });
+app.get(/^\/actors(?:\/(\w+))?$/, (req, res) => {
+    const name = req.params[0] || null;
+    res.render('actors',{name});
 });
 
 app.get('/movie/:name', (req, res) => {
@@ -38,18 +39,7 @@ app.get('/movie/:name', (req, res) => {
 });
 
 //sql
-app.get('/sqlmovies', (req, res) => {
-    const query = 'SELECT * FROM movie';
-    
-    connection.query(query, (err, results) => {
-        if (err) {
-            console.error('Error fetching data from the database:', err);
-            res.status(500).json({ error: 'Error fetching data from the database' });
-        } else {
-            res.json(results);
-        }
-    });
-});
+//movie details
 app.get('/sqlgetmovie/:moviename', (req, res) => {
     const moviename = req.params.moviename;
     const query = `SELECT * FROM movie WHERE title = '${moviename}'`;
@@ -62,10 +52,23 @@ app.get('/sqlgetmovie/:moviename', (req, res) => {
         }
     });
 });
-
-app.get('/sqlactors', (req, res) => {
-    const query = 'SELECT * FROM actor';
-    
+// movie search
+app.get('/sqlmovies/:moviename?', (req, res) => {
+    const moviename = req.params.moviename|| '';
+    query = `SELECT * FROM movie WHERE title like '%${moviename}%'`;
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+//actor search
+app.get('/sqlactors/:actorname?', (req, res) => {
+    const actorname = req.params.actorname|| '';
+    query = `SELECT * FROM actor WHERE f_name like '%${actorname}%' or l_name like '%${actorname}%'`;   
     connection.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching data from the database:', err);

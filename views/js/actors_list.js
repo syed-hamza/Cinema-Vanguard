@@ -2,16 +2,17 @@
 
 async function start() {
     try {
-        const data = await generatemovieList();
+        const search_val = document.getElementById("name-data").getAttribute('data-name')
+        const data = await generatemovieList(search_val);
         generateBlocks(data);
     } catch (error) {
         console.error(error);
     }
 }
 
-async function generatemovieList() {
+async function generatemovieList(search_val) {
     try {
-      const response = await fetch('/sqlactors');
+      const response = await fetch(`/sqlactors/${search_val}`);
       const data = await response.json();
       return data;
     } catch (error) {
@@ -24,7 +25,7 @@ function get_block(data) {
     return `
         <div class="card">
             <div class="card-img-top">
-                <img src="./images/shah.jpg" alt="Card image cap">
+                <img src="/images/shah.jpg" alt="Card image cap">
             </div>
             <h5 class="card-title">${data.f_name} ${data.l_name}</h5>
         </div>
