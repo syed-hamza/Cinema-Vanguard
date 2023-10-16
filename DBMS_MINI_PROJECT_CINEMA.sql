@@ -1,3 +1,4 @@
+drop database if exists `cinema`;
 CREATE DATABASE IF NOT EXISTS `cinema`;
 use `cinema`;
 
@@ -45,31 +46,24 @@ use `cinema`;
     
     create table `movie` (
 	`mov_id` varchar(10) not null,
-    `actor_id` varchar(30) not null,
     `dir_id` varchar(10) not null,
     `title` varchar(40) not null,
     `genere` char(10) null,
     `duration` int not null,
     `date_of_release` date not null,
     `plot` char(200),
-    primary key(`mov_id`,`actor_id`,`dir_id`,`date_of_release`),
-	CONSTRAINT `fk_actor_movie_id` FOREIGN KEY (`actor_id`) REFERENCES `actor` (`actor_id`) ON DELETE CASCADE,
+    primary key(`mov_id`,`dir_id`,`date_of_release`),
     CONSTRAINT `fk_dir_movie_id` FOREIGN KEY (`dir_id`) REFERENCES `director` (`dir_id`) ON DELETE CASCADE,
 	CONSTRAINT `duration` CHECK ((60 < `duration` < 180)));
 
 INSERT INTO `movie` VALUES
-('M001', 'ACT001', 'DIR01', 'Half-Girlfriend', 'Romance', 135, '2017-05-19', 'Madhav meets a girl named Riya and falls in love. After struggling to convince her to be his girlfriend, she half-heartedly agrees to be his "Half Girlfriend".'),
-('M001', 'ACT002', 'DIR01', 'Half-Girlfriend', 'Romance', 135, '2017-05-19', 'Madhav meets a girl named Riya and falls in love. After struggling to convince her to be his girlfriend, she half-heartedly agrees to be his "Half Girlfriend".'),
-('M002', 'ACT003', 'DIR02', 'Haider', 'Crime', 160, '2014-10-02', 'A young man returns to Kashmir after his fathers disappearance to confront his uncle, whom he suspects of playing a role in his fathers fate.'),
-('M002', 'ACT004', 'DIR02', 'Haider', 'Crime', 160, '2014-10-02', 'A young man returns to Kashmir after his fathers disappearance to confront his uncle, whom he suspects of playing a role in his fathers fate.'),
-('M002', 'ACT001', 'DIR02', 'Haider', 'Crime', 160, '2014-10-02', 'A young man returns to Kashmir after his fathers disappearance to confront his uncle, whom he suspects of playing a role in his fathers fate.'),
-('M003', 'ACT005', 'DIR03', 'Drishyam', 'Thriller', 143, '2015-07-31', 'Desperate measures are taken by a man who tries to save his family from the dark side of the law after they commit an unexpected crime.'),
-('M003', 'ACT004', 'DIR03', 'Drishyam', 'Thriller', 143, '2015-07-31', 'Desperate measures are taken by a man who tries to save his family from the dark side of the law after they commit an unexpected crime.'),
-('M004', 'ACT006', 'DIR04', 'Girl on the train', 'Suspense', 120, '2021-02-16', 'The story follows a woman who spends her daily commute fantasizing about a seemingly perfect couple who live in a house that her train passes daily, but something shocking happens there one day.'),
-('M005','ACT007','DIR05','Bhoomi','Drama',134,'2020-09-21','A single father battles injustice for his daughter when the perpetrators are found not guilty.');
+('M001', 'DIR01', 'Half-Girlfriend', 'Romance', 135, '2017-05-19', 'Madhav meets a girl named Riya and falls in love. After struggling to convince her to be his girlfriend, she half-heartedly agrees to be his "Half Girlfriend".'),
+('M002', 'DIR02', 'Haider', 'Crime', 160, '2014-10-02', 'A young man returns to Kashmir after his fathers disappearance to confront his uncle, whom he suspects of playing a role in his fathers fate.'),
+('M003','DIR03', 'Drishyam', 'Thriller', 143, '2015-07-31', 'Desperate measures are taken by a man who tries to save his family from the dark side of the law after they commit an unexpected crime.'),
+('M004','DIR04', 'Girl on the train', 'Suspense', 120, '2021-02-16', 'The story follows a woman who spends her daily commute fantasizing about a seemingly perfect couple who live in a house that her train passes daily, but something shocking happens there one day.'),
+('M005','DIR05','Bhoomi','Drama',134,'2020-09-21','A single father battles injustice for his daughter when the perpetrators are found not guilty.');
 
-
-    create table `production_house` (
+create table `production_house` (
     `prod_id` varchar(10) not null,
 	`prod_name` char(30) not null,
     `p_location` varchar(50) not null,
@@ -361,7 +355,16 @@ INSERT INTO `budget` VALUES
                             ('B004','W004','M004','Girl on the train','Eng'),
                             ('B005','W005','M005','Bhoomi','Hin');
     
+create table `actor_list`(
+	`mov_id` varchar(10) not null,
+    `actor_id` varchar(10)  not null,
+    primary key(`mov_id`,`actor_id`),
+	constraint `fk_movie_rel` foreign key (`mov_id`) references `movie`(`mov_id`) on delete cascade,
+	constraint `fk_actor_rel` foreign key (`actor_id`) references `actor`(`actor_id`) on delete cascade
+);
 
+insert into `actor_list` values('M001', 'ACT001'),('M001', 'ACT002'),('M002', 'ACT003'),('M002', 'ACT004'),
+('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M005','ACT007');
 
     
    

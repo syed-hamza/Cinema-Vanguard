@@ -2,8 +2,8 @@
 
 async function start() {
     try {
-        const names = await generatemovieList();
-        generateBlocks(names);
+        const data = await generatemovieList();
+        generateBlocks(data);
     } catch (error) {
         console.error(error);
     }
@@ -36,15 +36,15 @@ function get_block(name) {
 }
 
 
-    function generateBlocks(names) {
-        const bd = document.getElementById("movie_card_row");
-        for (const name of names) {
-            const code = get_block(name);
-            const col = document.createElement('div');
-            col.className = "col-md-4"; // Adjust the column size as per your layout needs (e.g., col-md-4 for 3 columns in a row)
-            col.innerHTML = code;
-            bd.appendChild(col);
-        }
+function generateBlocks(data) {
+    const bd = document.getElementById("movie_card_row");
+    for (const obj of data) {
+        const code = get_block(obj.title);
+        const col = document.createElement('div');
+        col.className = "col-md-4"; // Adjust the column size as per your layout needs (e.g., col-md-4 for 3 columns in a row)
+        col.innerHTML = code;
+        bd.appendChild(col);
     }
+}
 
 document.addEventListener('DOMContentLoaded', start);

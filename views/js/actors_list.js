@@ -2,8 +2,8 @@
 
 async function start() {
     try {
-        const names = await generatemovieList();
-        generateBlocks(names);
+        const data = await generatemovieList();
+        generateBlocks(data);
     } catch (error) {
         console.error(error);
     }
@@ -11,7 +11,7 @@ async function start() {
 
 async function generatemovieList() {
     try {
-      const response = await fetch('/sqlmovies');
+      const response = await fetch('/sqlactors');
       const data = await response.json();
       return data;
     } catch (error) {
@@ -20,13 +20,13 @@ async function generatemovieList() {
     }
   }
 
-function get_block(name) {
+function get_block(data) {
     return `
         <div class="card">
             <div class="card-img-top">
                 <img src="./images/shah.jpg" alt="Card image cap">
             </div>
-            <h5 class="card-title">${name}</h5>
+            <h5 class="card-title">${data.f_name} ${data.l_name}</h5>
         </div>
     `;
 }

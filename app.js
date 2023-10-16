@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'Regal@301',
-    database: 'test'
+    database: 'cinema'
 });
 // Configure Handlebars
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -38,21 +38,20 @@ app.get('/movie/:name', (req, res) => {
 
 //sql
 app.get('/sqlmovies', (req, res) => {
-    const query = 'SELECT name FROM movie';
+    const query = 'SELECT * FROM movie';
     
     connection.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching data from the database:', err);
             res.status(500).json({ error: 'Error fetching data from the database' });
         } else {
-            const names = results.map(result => result.name);
-            res.json(names);
+            res.json(results);
         }
     });
 });
 app.get('/sqlgetmovie/:moviename', (req, res) => {
     const moviename = req.params.moviename;
-    const query = `SELECT * FROM movie WHERE name = '${moviename}'`;
+    const query = `SELECT * FROM movie WHERE title = '${moviename}'`;
     connection.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching data from the database:', err);
@@ -64,15 +63,14 @@ app.get('/sqlgetmovie/:moviename', (req, res) => {
 });
 
 app.get('/sqlactors', (req, res) => {
-    const query = 'SELECT name FROM actor';
+    const query = 'SELECT * FROM actor';
     
     connection.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching data from the database:', err);
             res.status(500).json({ error: 'Error fetching data from the database' });
         } else {
-            const names = results.map(result => result.name);
-            res.json(names);
+            res.json(results);
         }
     });
 });
