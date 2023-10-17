@@ -356,8 +356,8 @@ INSERT INTO `budget` VALUES
                             ('B005','W005','M005','Bhoomi','Hin');
     
 create table `actor_list`(
-	`mov_id` varchar(10) not null,
-    `actor_id` varchar(10)  not null,
+	`mov_id` varchar(30) not null,
+    `actor_id` varchar(30)  not null,
     primary key(`mov_id`,`actor_id`),
 	constraint `fk_movie_rel` foreign key (`mov_id`) references `movie`(`mov_id`) on delete cascade,
 	constraint `fk_actor_rel` foreign key (`actor_id`) references `actor`(`actor_id`) on delete cascade
@@ -365,8 +365,15 @@ create table `actor_list`(
 
 insert into `actor_list` values('M001', 'ACT001'),('M001', 'ACT002'),('M002', 'ACT003'),('M002', 'ACT004'),
 ('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M005','ACT007');
-
-    
-   
+create table `image_list`(
+`name` varchar(30) not null,
+`img` varchar(30) not null,
+primary key(name));    
+insert into `image_list` values('ACT001','sharaddhakapoor.jpg'),
+('ACT002','arjubkapoor.jpg'),('ACT003','shahidkapoor.jpg'),
+('ACT004','tabu.jpg'),('ACT005','ad.jpg'),('ACT006','pari.jpg'),('ACT007','sandutt.jpg'),
+('M001','hgfmov.jpg'),('M002','haidermov.jpg'),('M003','drishyam.jpg'),('M004','gott.jpg'),
+('M005','bhoomi.jpg'),('B001','hgf_book.jpg'),('B002','hamlet.jpg'),('B003','tdos.jpg'),
+('B004','gottbook.jpg'),('B005','bhoomibook.jpg');
     
     

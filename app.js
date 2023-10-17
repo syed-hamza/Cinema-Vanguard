@@ -5,6 +5,7 @@ const mysql = require('mysql');
 const app = express();
 const port = process.env.PORT || 3000;
 
+
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -79,6 +80,18 @@ app.get('/sqlactors/:actorname?', (req, res) => {
     });
 });
 
+app.get('/sqlimages/:id', (req, res) => {
+    const id = req.params.id;
+    query = `SELECT * FROM image_list WHERE id = '${id}'`;  // Use placeholders instead of string interpolation   
+    connection.query(query, [id], (err, results) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
 
 
 
