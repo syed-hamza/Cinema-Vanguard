@@ -35,7 +35,8 @@ function get_block(data,path) {
             <div class="card-body">
             <h5 class="card-title">${data.title}</h5>
             <p class="card-text">${data.plot}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="genre">${data.genre}</p>
+            <a href="movie/${data.title}" class="btn btn-primary">More</a>
             </div>
         </div>
     `;

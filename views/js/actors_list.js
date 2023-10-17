@@ -29,9 +29,11 @@ async function generatemovieList(search_val) {
 function get_block(data,path) {
     return `
         <div class="card">
-            <div class="card-img-top">
-                <img src="/images/${path}" alt="Card image cap">
-            </div>
+            <a href ="/actor/${data.actor_id}">
+                <div class="card-img-top">
+                    <img src="/images/${path}" alt="Card image cap">
+                </div>
+            </a>
             <h5 class="card-title">${data.f_name} ${data.l_name}</h5>
         </div>
     `;
@@ -39,7 +41,7 @@ function get_block(data,path) {
 
 
     async function generateBlocks(data) {
-        const bd = document.getElementById("movie_card_row");
+        const bd = document.getElementById("actors_card_row");
         for (const obj of data) {
             path = await get_img(obj.actor_id);
             const code = get_block(obj,path);

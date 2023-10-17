@@ -38,6 +38,10 @@ app.get('/movie/:name', (req, res) => {
     const name = req.params.name;
     res.render('movie',{name});
 });
+app.get('/actor/:id', (req, res) => {
+    const id = req.params.id;
+    res.render('actor',{id});
+});
 
 //sql
 //movie details
@@ -79,7 +83,19 @@ app.get('/sqlactors/:actorname?', (req, res) => {
         }
     });
 });
-
+//actor details
+app.get('/sqlgetactor/:actorid', (req, res) => {
+    const actorid = req.params.actorid;
+    const query = `SELECT * FROM actor WHERE actor_id = '${actorid}'`;
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
 app.get('/sqlimages/:id', (req, res) => {
     const id = req.params.id;
     query = `SELECT * FROM image_list WHERE id = '${id}'`;  // Use placeholders instead of string interpolation   
