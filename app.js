@@ -33,7 +33,10 @@ app.get(/^\/actors(?:\/(\w+))?$/, (req, res) => {
     const name = req.params[0] || null;
     res.render('actors',{name});
 });
-
+app.get(/^\/books(?:\/(\w+))?$/, (req, res) => {
+    const name = req.params[0] || null;
+    res.render('books',{name});
+});
 app.get('/movie/:name', (req, res) => {
     const name = req.params.name;
     res.render('movie',{name});
@@ -61,6 +64,18 @@ app.get('/sqlgetmovie/:moviename', (req, res) => {
 app.get('/sqlmovies/:moviename?', (req, res) => {
     const moviename = req.params.moviename|| '';
     query = `SELECT * FROM movie WHERE title like '%${moviename}%'`;
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+app.get('/sqlbooks/:bookname?', (req, res) => {
+    const bookname = req.params.bookname|| '';
+    query = `SELECT * FROM book WHERE b_name like '%${bookname}%'`;
     connection.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching data from the database:', err);
@@ -99,7 +114,19 @@ app.get('/sqlgetactor/:actorid', (req, res) => {
 app.get('/sqlimages/:id', (req, res) => {
     const id = req.params.id;
     query = `SELECT * FROM image_list WHERE id = '${id}'`;  // Use placeholders instead of string interpolation   
-    connection.query(query, [id], (err, results) => {
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
+app.get('/sqlquery/:query', (req, res) => {
+    const query = req.params.query;// Use placeholders instead of string interpolation   
+    connection.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching data from the database:', err);
             res.status(500).json({ error: 'Error fetching data from the database' });
