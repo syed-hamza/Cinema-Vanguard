@@ -29,9 +29,7 @@ async function get_img(id){
 function get_block(data,path,author) {
     return `
         <div class="card" style="width: 18rem;">
-            <a href="movie/${data.b_name}">
             <img class="card-img-top" src="/images/${path}" alt="Card image cap">
-            </a>
             <div class="card-body">
             <h5 class="card-title">${data.b_name}</h5>
             <h5 class="card-title">by ${author}</h5>

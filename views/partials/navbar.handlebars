@@ -34,8 +34,8 @@
     </div>
     <div class="col-md-3">
     <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id = "keyword">
+      <button type="button" class="btn btn-outline-success" id = "search" onclick = "preventDefaultAction(event)">Search</button>
     </form>
     </div>
   </div>
@@ -61,6 +61,15 @@
     <div></div>
   </div>
 </div>
+<script>
+function preventDefaultAction(event){
+    text = document.getElementById("keyword").value;
+    var currentPath = window.location.pathname; // This will give you something like "/movies"
+    var pathSegments = currentPath.split('/'); // Split the path by '/'
+    var reqSegment = pathSegments[1]; // Get the last segment
+    window.location.href = `/${reqSegment}/${text}`;
+}
+</script>
 </body>
 </html>
           
