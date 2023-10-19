@@ -1,5 +1,4 @@
-async function login(event) {
-    event.preventDefault();
+async function loginfunc() {
     var password = document.getElementById('password').value;
     var username = document.getElementById('username').value;
     var query = `select * from accounts as a where a.username = '${username}'`;
@@ -12,6 +11,8 @@ async function login(event) {
     if (password !== result[0].password) {
       alert('Incorrect password.');
     } else {
+      localStorage.setItem('username', username);
+      console.log("success");
       window.location.href = '/';
     }
   }

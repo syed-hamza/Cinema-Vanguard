@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'veeru*15J69',
+    password: 'Regal@301',
     database: 'cinema'
 });
 // Configure Handlebars
