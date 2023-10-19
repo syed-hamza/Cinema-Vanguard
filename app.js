@@ -25,6 +25,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.render('home');
 });
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+app.get('/register', (req, res) => {
+    res.render('register');
+});
 app.get(/^\/movies(?:\/(\w+))?$/, (req, res) => {
     const name = req.params[0] || null; // Default value if "name" is not provided
     res.render('movies', { name });
