@@ -48,7 +48,7 @@ use `cinema`;
 	`mov_id` varchar(10) not null,
     `dir_id` varchar(10) not null,
     `title` varchar(40) not null,
-    `genere` char(10) null,
+    `genre` char(10) null,
     `duration` int not null,
     `date_of_release` date not null,
     `plot` char(200),
@@ -365,10 +365,11 @@ create table `actor_list`(
 
 insert into `actor_list` values('M001', 'ACT001'),('M001', 'ACT002'),('M002', 'ACT003'),('M002', 'ACT004'),
 ('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M005','ACT007');
+
 create table `image_list`(
-`name` varchar(30) not null,
+`id` varchar(30) not null,
 `img` varchar(30) not null,
-primary key(name));    
+primary key(id));    
 insert into `image_list` values('ACT001','sharaddhakapoor.jpg'),
 ('ACT002','arjubkapoor.jpg'),('ACT003','shahidkapoor.jpg'),
 ('ACT004','tabu.jpg'),('ACT005','ad.jpg'),('ACT006','pari.jpg'),('ACT007','sandutt.jpg'),
