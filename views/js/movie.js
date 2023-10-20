@@ -35,8 +35,11 @@ async function generateData(details) {
     const act = document.getElementById("act");
     const budget = document.getElementById("budget");
     const profit = document.getElementById("profit");
+    const rel = document.getElementById("rel");
+    const plot = document.getElementById("plot");
     dur.innerHTML = details["duration"];
-
+    rel.innerHTML = details.date_of_release;
+    plot.innerHTML = details.plot;
     var h = document.createElement('h1');
     h.innerText = details.title;
     head.appendChild(h);
