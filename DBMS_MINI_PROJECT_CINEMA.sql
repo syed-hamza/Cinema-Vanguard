@@ -23,7 +23,9 @@ use `cinema`;
 ('ACT004', 'Tabassum', 'Hashima', '9374827384', 7.8, 'F', '1971-11-04', 'Drishyam, Khufiya'),
 ('ACT005', 'Ajay', 'Devgan', '9329428192', 8.1, 'M', '1978-09-26', 'Drishyam, Singham, Golmaal, All the best, Bol Bachhan'),
 ('ACT006', 'Parineeti', 'Chopra', '8394829384', 7.5, 'F', '1988-10-22', 'Hasi Toh Phasi, Girl on the train, meri pyaari bindu, Shuddh Desi Romance'),
-('ACT007', 'Sanjay', 'DUtt', '8394728394', 7.6, 'M', '1959-07-29', 'Bhoomi, Munna Bhai MBBS, All the best');
+('ACT008', 'Sanjay', 'Dutt', '8394728394', 7.6, 'M', '1959-07-29', 'Bhoomi, Munna Bhai MBBS, All the best'),
+('ACT007','Aditi Rao','Hydari','8738499920',7.9,'F', '1986-10-08','Bhoomi, Girl on the train, Murder 3, Rockstar'),
+('ACT009','Alia','Bhatt','9538475928',8.8,'F','1993-03-15','Student of the year, 2 States, Raazi, Gangubai, Brahmastra, Kapoor and sons, Dear Zindagi');
 
     create table `director` (
     `dir_id` varchar(10) not null,
@@ -41,7 +43,8 @@ use `cinema`;
 ('DIR02', 'Vishal', 'Bhardwaj', '9482948392', 6.2, 'M', '1965-08-04', 'Haider, Omkara, Maqubool, 7 Khoon Maaf'),
 ('DIR03', 'Nishikant', 'Kamat', '9384728374', 8.6, 'M', '1970-06-17', 'Drishyam, Dombivli Fast, Mumbai meri jaan'),
 ('DIR04', 'Ribhu', 'Dasgupta', '9384750695', 7.9, 'M', '1988-09-23', 'Section 84, Code Name: Tiranga, The Girl On The Train, TE3N'),
-('DIR05', 'Omung', 'Kumar', '9583948304', 7.3, 'M', '1970-10-08', 'Bhoomi, Mary Kom, Sarbjit');
+('DIR05', 'Omung', 'Kumar', '9583948304', 7.3, 'M', '1970-10-08', 'Bhoomi, Mary Kom, Sarbjit'),
+('DIR06','Abhishek','Varma','9374658374',6.8,'M','1987-01-09','2 states, Kalank, Dostana, Paa, Kabhi Alvida Na Kehna');
 
     
     create table `movie` (
@@ -61,7 +64,8 @@ INSERT INTO `movie` VALUES
 ('M002', 'DIR02', 'Haider', 'Crime', 160, '2014-10-02', 'A young man returns to Kashmir after his fathers disappearance to confront his uncle, whom he suspects of playing a role in his fathers fate.'),
 ('M003','DIR03', 'Drishyam', 'Thriller', 143, '2015-07-31', 'Desperate measures are taken by a man who tries to save his family from the dark side of the law after they commit an unexpected crime.'),
 ('M004','DIR04', 'Girl on the train', 'Suspense', 120, '2021-02-16', 'The story follows a woman who spends her daily commute fantasizing about a seemingly perfect couple who live in a house that her train passes daily, but something shocking happens there one day.'),
-('M005','DIR05','Bhoomi','Drama',134,'2020-09-21','A single father battles injustice for his daughter when the perpetrators are found not guilty.');
+('M005','DIR05','Bhoomi','Drama',134,'2020-09-21','A single father battles injustice for his daughter when the perpetrators are found not guilty. Both father and daughter embar on a journey to restore their glory.'),
+('M006','DIR06','2 States','Comedy',140,'2014-03-18',' This movie chronicles how Chetan met his wife and the difficulties they faced due to their cultural differences.They decide not to get married until they convince their parents');
 
 create table `production_house` (
     `prod_id` varchar(10) not null,
@@ -75,7 +79,9 @@ create table `production_house` (
 										  ('P002','Vishal Bharadwaj Flims', '120 Main Street Cityville, brgiade FCT 1324','M002'),
                                           ('P003','Panorama Studios','087 Main Street Cityville, mainsvills FCT 1904','M003'),
                                           ('P004','Reliance Entertainment','950 Main Street Cityville, kimberland FCT 1904','M004'),
-                                          ('P005','T-Series','950 Main Street taleville, Patangshe FCT 1294','M005');
+                                          ('P005','T-Series','950 Main Street taleville, Patangshe FCT 1294','M005'),
+                                          ('P006','Dharma Productions','230 Main Street Mangitown, Sheerlake FCT 1302','M006');
+
     
     create table `crew` (
     `c_id` varchar(10) not null,
@@ -353,7 +359,8 @@ INSERT INTO `budget` VALUES
 							('B002','W002','M002','Hamlet','Eng'),
                             ('B003','W003','M003','The Devotion of Suspect X','Jap'),
                             ('B004','W004','M004','Girl on the train','Eng'),
-                            ('B005','W005','M005','Bhoomi','Hin');
+                            ('B005','W005','M005','Bhoomi','Hin'),
+                            ('B006','W001','M006','2 States','Eng');
     
 create table `actor_list`(
 	`mov_id` varchar(30) not null,
@@ -364,7 +371,7 @@ create table `actor_list`(
 );
 
 insert into `actor_list` values('M001', 'ACT001'),('M001', 'ACT002'),('M002', 'ACT003'),('M002', 'ACT004'),
-('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M005','ACT007');
+('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M005','ACT007'),('M004','ACT007'),('M005','ACT007'),('M002','ACT001');
 
 create table `image_list`(
 `id` varchar(30) not null,
@@ -372,18 +379,10 @@ create table `image_list`(
 primary key(id));    
 insert into `image_list` values('ACT001','sharaddhakapoor.jpg'),
 ('ACT002','arjubkapoor.jpg'),('ACT003','shahidkapoor.jpg'),
-('ACT004','tabu.jpg'),('ACT005','ad.jpg'),('ACT006','pari.jpg'),('ACT007','sandutt.jpg'),
+('ACT004','tabu.jpg'),('ACT005','ad.jpg'),('ACT006','pari.jpg'),('ACT008','sandutt.jpg'),
+('ACT007','ARH.jpg'),('ACT009','AB.jpg'),('M006','2states.jpg'),
 ('M001','hgfmov.jpg'),('M002','haidermov.jpg'),('M003','drishyam.jpg'),('M004','gott.jpg'),
 ('M005','bhoomi.jpg'),('B001','hgf_book.jpg'),('B002','hamlet.jpg'),('B003','tdos.jpg'),
-('B004','gottbook.jpg'),('B005','bhoomibook.jpg');
-
-create table `accounts`(
-`email` varchar(30) not null,
-`username` varchar(30) not null,
-`password` varchar(30) not null,
-`auth` varchar(10) not null
-);
-insert into `accounts` values("admineg1@gmail.com","admineg1","admineg1","admin"),
-("usereg1@gmail.com","usereg1","usereg1","user");
+('B004','gottbook.jpg'),('B005','bhoomibook.jpg'),('B006','2statesbook.jpg');
     
     
