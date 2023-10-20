@@ -32,6 +32,9 @@ async function generateData(details) {
     const dur = document.getElementById("duration");
     const dir = document.getElementById("director");
     const prd = document.getElementById("prod");
+    const act = document.getElementById("act");
+    const budget = document.getElementById("budget");
+    const profit = document.getElementById("profit");
     dur.innerHTML = details["duration"];
 
     var h = document.createElement('h1');
@@ -50,6 +53,16 @@ async function generateData(details) {
     query = `select * from production_house where mov_id = '${details.mov_id}'`
     data = await get_data(query);
     prd.innerHTML=`${data[0].prod_name}`;
+
+    query = `select * from actor_list as al join actor as a on a.actor_id = al.actor_id where mov_id = '${details.mov_id}'`
+    data = await get_data(query);
+    for(i in data){
+        act.innerHTML=act.innerHTML + `${data[i].f_name} ${data[i].l_name},`;
+    }
+    query = `select * from budget where mov_id = '${details.mov_id}'`
+    data = await get_data(query);
+    budget.innerHTML=`₹${data[0].expenditure}`;
+    profit.innerHTML=`₹${data[0].profit}`;
 }
 async function get_data(query) {
     try {

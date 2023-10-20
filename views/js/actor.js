@@ -29,10 +29,12 @@ async function getActorData(id) {
 
 async function generateData(details) {
     details = details[0];
+    console.log(details);
     const head = document.getElementById("head");
     const imgh = document.getElementById("img_holder");
     const dur = document.getElementById("gender");
-
+    const movies = document.getElementById("movies");
+    const con = document.getElementById("contact");
     dur.innerHTML = details.gender;
 
     var h = document.createElement('h1');
@@ -43,6 +45,8 @@ async function generateData(details) {
     img.src = `/images/${path}`;
     img.style.maxWidth = "100%";
     imgh.appendChild(img);
+    movies.innerHTML = details.works;
+    con.innerHTML = details.contact_no;
 
 }
 
