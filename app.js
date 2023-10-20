@@ -35,6 +35,10 @@ app.get(/^\/movies(?:\/(\w+))?$/, (req, res) => {
     const name = req.params[0] || null; // Default value if "name" is not provided
     res.render('movies', { name });
   });
+  app.get(/^\/companies(?:\/(\w+))?$/, (req, res) => {
+    const name = req.params[0] || null; // Default value if "name" is not provided
+    res.render('companies', { name });
+  });
 app.get(/^\/actors(?:\/(\w+))?$/, (req, res) => {
     const name = req.params[0] || null;
     res.render('actors',{name});
