@@ -359,7 +359,8 @@ INSERT INTO `budget` VALUES
 							('B002','W002','M002','Hamlet','Eng'),
                             ('B003','W003','M003','The Devotion of Suspect X','Jap'),
                             ('B004','W004','M004','Girl on the train','Eng'),
-                            ('B005','W005','M005','Bhoomi','Hin');
+                            ('B005','W005','M005','Bhoomi','Hin'),
+                            ('B006','W001','M006','2 States','Eng');
     
 create table `actor_list`(
 	`mov_id` varchar(30) not null,
