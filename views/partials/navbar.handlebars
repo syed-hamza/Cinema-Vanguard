@@ -4,23 +4,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
     <link href="/css/navstyle.css" rel="stylesheet">
 </head>
 <body>
    
 
 <nav class="navbar navbar-expand-lg navbar-light bg-black">
-    <div class="container">
+    <div class="container" id = "navb">
         <!-- Logo -->
         {{!-- <a class="navbar-brand" href="#">
             <img src="your-logo.png" width="30" height="30" class="d-inline-block align-top" alt="Your Logo">
         </a> --}}
 
         <!-- Navigation Links -->
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" id = "links">
             <li class="nav-item">
                 <a class="navmenu" href="/">Home</a>
             </li>
@@ -35,7 +37,6 @@
             </li>
         </ul>
     </div>
-
     <div class="search">
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id = "keyword">
@@ -48,13 +49,59 @@
 <!-- Add the Bootstrap JS (jQuery is required for Bootstrap) -->
 
 <script>
-function preventDefaultAction(event){
-    text = document.getElementById("keyword").value;
-    var currentPath = window.location.pathname; // This will give you something like "/movies"
-    var pathSegments = currentPath.split('/'); // Split the path by '/'
-    var reqSegment = pathSegments[1]; // Get the last segment
-    window.location.href = `/${reqSegment}/${text}`;
+document.addEventListener('DOMContentLoaded', start);
+
+async function start() {
+    username = localStorage.getItem('username');
+    if(username != "null"){
+        query = `select * from accounts where username = '${username}'`;
+        var res = await fetch(`/sqlquery/${query}`);
+        res = await res.json();
+        var auth = res[0].auth;
+        var drop = getdrop(username,auth);
+        nav = document.getElementById("navb");
+        nav.insertAdjacentHTML('afterend', drop);
+    }
+    else{
+        login = getlogin();
+        links = document.getElementById("links");
+        links.insertAdjacentHTML('afterend', login);
+    }
 }
+function getlogin(){
+    return `<li class="nav-item">
+                <a class="navmenu" href="/login">Login</a>
+            </li>`
+}
+
+function getdrop(name,authority){
+    return `
+    <div class="dropdown">
+        <button class="dropdown-button">${username}</button>
+        <div class="dropdown-content">
+            <a class="navmenu">Type:${authority}</a>
+            <a class="navmenu" onclick="chuser()">Logout</a>
+        </div>
+    </div>
+    `
+}
+function chuser(){
+    localStorage.setItem('username', "null");
+    reqSegment = getsubsite()
+    window.location.href = `/${reqSegment}`;
+}
+function getsubsite(){
+    var currentPath = window.location.pathname;
+    var pathSegments = currentPath.split('/');
+    return pathSegments[1];
+}
+document.getElementById("search").addEventListener("click", function(event) {
+    event.preventDefault();
+    var text = document.getElementById("keyword").value;
+    reqSegment = getsubsite()
+    window.location.href = `/${reqSegment}/${text}`;
+});
+
 </script>
 </body>
 </html>

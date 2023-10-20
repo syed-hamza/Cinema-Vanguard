@@ -383,6 +383,15 @@ insert into `image_list` values('ACT001','sharaddhakapoor.jpg'),
 ('ACT007','ARH.jpg'),('ACT009','AB.jpg'),('M006','2states.jpg'),
 ('M001','hgfmov.jpg'),('M002','haidermov.jpg'),('M003','drishyam.jpg'),('M004','gott.jpg'),
 ('M005','bhoomi.jpg'),('B001','hgf_book.jpg'),('B002','hamlet.jpg'),('B003','tdos.jpg'),
-('B004','gottbook.jpg'),('B005','bhoomibook.jpg'),('B006','2statesbook.jpg');
+('B004','gottbook.jpg'),('B005','bhoomibook.jpg');
+
+create table `accounts`(
+`email` varchar(30) not null,
+`username` varchar(30) not null,
+`password` varchar(30) not null,
+`auth` varchar(10) not null
+);
+insert into `accounts` values("admineg1@gmail.com","admineg1","admineg1","admin"),
+("usereg1@gmail.com","usereg1","usereg1","user");
     
     
