@@ -371,7 +371,7 @@ create table `actor_list`(
 );
 
 insert into `actor_list` values('M001', 'ACT001'),('M001', 'ACT002'),('M002', 'ACT003'),('M002', 'ACT004'),
-('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M004','ACT007'),('M005','ACT007'),('M002','ACT001');
+('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M004','ACT007'),('M005','ACT007');
 
 create table `image_list`(
 `id` varchar(30) not null,

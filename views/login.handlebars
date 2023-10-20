@@ -43,7 +43,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', check);
     function check(){
-        if(localStorage.getItem('username')!= "null"){
+        if(localStorage.getItem('username')!= "null" && localStorage.getItem('username')!= null ){
             window.location.href = '/';
         }
     }
