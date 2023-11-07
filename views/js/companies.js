@@ -36,10 +36,9 @@ async function get_node(data) {
     }
 
     query = `select * from sponsered_by as sb join sponser as s on s.s_id = sb.s_id where sb.prod_id='${data.prod_id}'`
-    console.log(query);
     data = await get_data(query);
-    //console.log(data);
     const sp_col = document.createElement('td');
+    console.log(data[0])
     sp_col.textContent = data[0].s_name;
     row.appendChild(sp_col);
     return row;

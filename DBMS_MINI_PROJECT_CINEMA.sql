@@ -124,14 +124,14 @@ create table `production_house` (
 
 
     
-    create table `sponsered by` (
+    create table `sponsered_by` (
     `s_id` varchar(10) not null,
     `prod_id` varchar(10) not null,
     primary key(`s_id`,`prod_id`),
     CONSTRAINT `fk_prod_sp_id` FOREIGN KEY (`prod_id`) REFERENCES `production_house` (`prod_id`) ON DELETE CASCADE,
     CONSTRAINT `fk_sp_s_id` FOREIGN KEY (`s_id`) REFERENCES `sponser` (`s_id`) ON DELETE CASCADE);
     
-    insert into `sponsered by` values ('S001','P001'),('S002','P002'),('S003','P003'),('S004','P004'),('S005','P005');
+    insert into `sponsered_by` values ('S001','P001'),('S002','P002'),('S003','P003'),('S004','P004'),('S005','P005');
     
     create table `rank` (
     `actor_id` varchar(10) not null,

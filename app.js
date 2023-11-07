@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'veeru*15J69',
+    password: 'Regal@301',
     database: 'cinema'
 });
 // Configure Handlebars
@@ -43,6 +43,10 @@ app.get(/^\/actors(?:\/(\w+))?$/, (req, res) => {
     const name = req.params[0] || null;
     res.render('actors',{name});
 });
+app.get(/^\/directors(?:\/(\w+))?$/, (req, res) => {
+    const name = req.params[0] || null;
+    res.render('directors',{name});
+});
 app.get(/^\/books(?:\/(\w+))?$/, (req, res) => {
     const name = req.params[0] || null;
     res.render('books',{name});
@@ -55,7 +59,10 @@ app.get('/actor/:id', (req, res) => {
     const id = req.params.id;
     res.render('actor',{id});
 });
-
+app.get('/director/:id', (req, res) => {
+    const id = req.params.id;
+    res.render('director',{id});
+});
 //sql
 //movie details
 app.get('/sqlgetmovie/:moviename', (req, res) => {
@@ -99,6 +106,19 @@ app.get('/sqlbooks/:bookname?', (req, res) => {
 app.get('/sqlactors/:actorname?', (req, res) => {
     const actorname = req.params.actorname|| '';
     query = `SELECT * FROM actor WHERE f_name like '%${actorname}%' or l_name like '%${actorname}%'`;   
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+//director search
+app.get('/sqldirectors/:directorname?', (req, res) => {
+    const directorname = req.params.directorname|| '';
+    query = `SELECT * FROM director WHERE f_name like '%${directorname}%' or l_name like '%${directorname}%'`;   
     connection.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching data from the database:', err);
