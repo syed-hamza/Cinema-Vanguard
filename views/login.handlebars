@@ -8,7 +8,11 @@
       background-color: #212529;
       color: #fff;
     }
-
+    
+    .text-center{
+      color: rgb(255, 187, 0);
+      font-size: 3em;
+    }
     .login-form {
       max-width: 350px;
       margin: 0 auto;
@@ -22,9 +26,9 @@
     }
 
     .login-form button {
-      background-color: #007bff;
-      border-color: #007bff;
-      color: #fff;
+      background-color: rgb(255, 187, 0);
+      border-color: black;
+      color: #000000;
     }
   </style>
 </head>
@@ -35,7 +39,7 @@
         <h1 class="text-center">Login</h1>
         <input type="text" name="text" placeholder="Username" id = "username" class="form-control">
         <input type="password" name="password" placeholder="Password" id = "password" class="form-control">
-        <button onclick="loginfunc()" class="btn btn-primary btn-block">Login</button>
+        <button onclick="loginfunc()" class="btn btn-warning btn-block"><b>Login</b></button>
       </div>
     </div>
   </div>
