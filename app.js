@@ -51,6 +51,10 @@ app.get(/^\/books(?:\/(\w+))?$/, (req, res) => {
     const name = req.params[0] || null;
     res.render('books',{name});
 });
+app.get(/^\/writers(?:\/(\w+))?$/, (req, res) => {
+    const name = req.params[0] || null;
+    res.render('writers',{name});
+});
 app.get('/movie/:name', (req, res) => {
     const name = req.params.name;
     res.render('movie',{name});
@@ -62,6 +66,10 @@ app.get('/actor/:id', (req, res) => {
 app.get('/director/:id', (req, res) => {
     const id = req.params.id;
     res.render('director',{id});
+});
+app.get('/writer/:id', (req, res) => {
+    const id = req.params.id;
+    res.render('writer',{id});
 });
 //sql
 //movie details
@@ -128,6 +136,20 @@ app.get('/sqldirectors/:directorname?', (req, res) => {
         }
     });
 });
+//writers search
+app.get('/sqlwriters/:writername?', (req, res) => {
+    const writername = req.params.writername|| '';
+    query = `SELECT * FROM writer WHERE f_name like '%${writername}%' or l_name like '%${writername}%'`;   
+    connection.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching data from the database:', err);
+            res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+            res.json(results);
+        }
+    });
+});
+
 //actor details
 app.get('/sqlgetactor/:actorid', (req, res) => {
     const actorid = req.params.actorid;
