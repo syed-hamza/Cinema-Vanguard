@@ -371,7 +371,7 @@ create table `actor_list`(
 );
 
 insert into `actor_list` values('M001', 'ACT001'),('M001', 'ACT002'),('M002', 'ACT003'),('M002', 'ACT004'),
-('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M004','ACT007'),('M005','ACT007'),('M002','ACT001');
+('M002', 'ACT001'),('M003', 'ACT005'),('M003', 'ACT004'),('M004', 'ACT006'),('M004','ACT007'),('M005','ACT007');
 
 create table `image_list`(
 `id` varchar(30) not null,
@@ -383,8 +383,11 @@ insert into `image_list` values('ACT001','sharaddhakapoor.jpg'),
 ('ACT007','ARH.jpg'),('ACT009','AB.jpg'),('M006','2states.jpg'),
 ('M001','hgfmov.jpg'),('M002','haidermov.jpg'),('M003','drishyam.jpg'),('M004','gott.jpg'),
 ('M005','bhoomi.jpg'),('B001','hgf_book.jpg'),('B002','hamlet.jpg'),('B003','tdos.jpg'),
-('B004','gottbook.jpg'),('B005','bhoomibook.jpg'),('B006','2statesbook.jpg');
-    
+('B004','gottbook.jpg'),('B005','bhoomibook.jpg'),('B006','2statesbook.jpg'),('W001','chetan.jpg'),
+('W002','shakespear.jpg'),('W003','keigo.jpg'),('W004','paula.jpg'),('W005','santosh.jpg'),
+('DIR001','mohitsuri.jpg'),('DIR002','vishalbharadwaj.jpg'),('DIR003','nishantkamat.jpg'),('DIR004','ribhudas.jpg'),
+('DIR005','umangkumar.jpg'),('DIR006','AbhishekVerma.jpg');
+
 create table `accounts`(
 `email` varchar(30) not null,
 `username` varchar(30) not null,
