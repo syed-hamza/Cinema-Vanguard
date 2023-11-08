@@ -71,6 +71,10 @@ app.get('/writer/:id', (req, res) => {
     const id = req.params.id;
     res.render('writer',{id});
 });
+app.get('/update/:name', (req, res) => {
+    const name = req.params.name;
+    res.render('update',{name});
+});
 //sql
 //movie details
 app.get('/sqlgetmovie/:moviename', (req, res) => {
