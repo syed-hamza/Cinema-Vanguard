@@ -29,6 +29,49 @@
     text-decoration: none;
     border-radius: 10%;
   }
+
+
+.menu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+
+.menu-link {
+  padding:10px;
+  color: rgb(255, 187, 0);
+  font:small;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 1000;
+  border-radius: 10%;
+  border: 2px solid rgb(255, 187, 0);
+}
+
+.menu-link:hover {
+    padding: 5px;
+    background-color: #fbb900; /* Background color on hover */
+    color: #000; /* Text color on hover */
+    text-decoration: none;
+    border-radius: 10%;
+}
+
+
+
+.dropdown-content .dropdown-link {
+    color: #fbb900; /* Text color for dropdown links */
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-link:hover{
+  color: #000;
+  background-color: #fbb900;
+}
+
+
+
   
   .search{
     padding:20px;

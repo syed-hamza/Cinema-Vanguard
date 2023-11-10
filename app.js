@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'Regal@301',
+    password: 'veeru*15J69',
     database: 'cinema'
 });
 // Configure Handlebars
@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.render('home');
 });
+
 app.get('/login', (req, res) => {
     res.render('login');
 });
@@ -71,6 +72,8 @@ app.get('/writer/:id', (req, res) => {
     const id = req.params.id;
     res.render('writer',{id});
 });
+
+
 //sql
 //movie details
 app.get('/sqlgetmovie/:moviename', (req, res) => {
