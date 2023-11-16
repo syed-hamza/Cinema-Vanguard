@@ -36,6 +36,7 @@ async function generateData(details) {
     const budget = document.getElementById("budget");
     const profit = document.getElementById("profit");
     const rel = document.getElementById("rel");
+    const status = document.getElementById("status");
     const plot = document.getElementById("plot");
     dur.innerHTML = details["duration"];
     rel.innerHTML = details.date_of_release;
@@ -65,7 +66,19 @@ async function generateData(details) {
     query = `select * from budget where mov_id = '${details.mov_id}'`
     data = await get_data(query);
     budget.innerHTML=`₹${data[0].expenditure}`;
-    profit.innerHTML=`₹${data[0].profit}`;
+
+    query = `SELECT CalculateTotalRevenue('${details.mov_id}') AS totalRevenue;`
+    data = await get_data(query);
+    profit.innerHTML=`₹${data[0].totalRevenue}`;
+
+    query = `SET @result = '';`
+    data = await get_data(query);
+    query =`CALL CheckMoviePerformance('${details.mov_id}', @result);`
+    data = await get_data(query);
+    query =`SELECT @result AS performance;`
+    data = await get_data(query);
+    console.log(data)
+    status.innerHTML=`${data[0].performance}`;
 }
 async function get_data(query) {
     try {

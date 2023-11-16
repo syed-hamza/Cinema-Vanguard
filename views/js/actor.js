@@ -35,6 +35,9 @@ async function generateData(details) {
     const dur = document.getElementById("gender");
     const movies = document.getElementById("movies");
     const con = document.getElementById("contact");
+    const age = document.getElementById("age");
+    const ratings = document.getElementById("ratings");
+    
     dur.innerHTML = details.gender;
 
     var h = document.createElement('h1');
@@ -47,6 +50,9 @@ async function generateData(details) {
     imgh.appendChild(img);
     movies.innerHTML = details.works;
     con.innerHTML = details.contact_no;
+
+    age.innerHTML = details.age;
+    ratings.innerHTML = details.ratings;
 
 }
 
