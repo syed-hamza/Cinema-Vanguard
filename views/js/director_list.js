@@ -8,6 +8,7 @@ async function start() {
     } catch (error) {
         console.error(error);
     }
+   
 }
 
 async function generatedirectorsList(search_val) {
