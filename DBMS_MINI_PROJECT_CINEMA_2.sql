@@ -17,15 +17,50 @@ use `cinema`;
     primary key (`actor_id`));
     
    INSERT INTO `actor` VALUES
-('ACT001', 'Shraddha', 'Kapoor', '8491038489', 9.1, 'F', '1989-03-03', 'Half-girlfriend, ABCD 2, Ek Villian, Tu Jhooti Me Makkar, Aashiqui 2'),
-('ACT002', 'Arjun', 'Kapoor', '9857493847', 8.5, 'M', '1985-06-26', 'Half-Girlfriend, Ki and Ka, 2 States, Gunday'),
-('ACT003', 'Shahid', 'Kapoor', '9472856372', 8.8, 'M', '1981-02-25', 'Haider, Kabir Singh, Shandaar, Jab we met, Vivah'),
-('ACT004', 'Tabassum', 'Hashima', '9374827384', 7.8, 'F', '1971-11-04', 'Drishyam, Khufiya'),
-('ACT005', 'Ajay', 'Devgan', '9329428192', 8.1, 'M', '1978-09-26', 'Drishyam, Singham, Golmaal, All the best, Bol Bachhan'),
-('ACT006', 'Parineeti', 'Chopra', '8394829384', 7.5, 'F', '1988-10-22', 'Hasi Toh Phasi, Girl on the train, meri pyaari bindu, Shuddh Desi Romance'),
-('ACT008', 'Sanjay', 'Dutt', '8394728394', 7.6, 'M', '1959-07-29', 'Bhoomi, Munna Bhai MBBS, All the best'),
-('ACT007','Aditi Rao','Hydari','8738499920',7.9,'F', '1986-10-08','Bhoomi, Girl on the train, Murder 3, Rockstar'),
-('ACT009','Alia','Bhatt','9538475928',8.8,'F','1993-03-15','Student of the year, 2 States, Raazi, Gangubai, Brahmastra, Kapoor and sons, Dear Zindagi');
+('ACT001', 'Shraddha', 'Kapoor', '8491038489', NULL, 'F', '1989-03-03', 'Half-girlfriend, ABCD 2, Ek Villian, Tu Jhooti Me Makkar, Aashiqui 2'),
+('ACT002', 'Arjun', 'Kapoor', '9857493847',NULL, 'M', '1985-06-26', 'Half-Girlfriend, Ki and Ka, 2 States, Gunday'),
+('ACT003', 'Shahid', 'Kapoor', '9472856372',NULL, 'M', '1981-02-25', 'Haider, Kabir Singh, Shandaar, Jab we met, Vivah'),
+('ACT004', 'Tabassum', 'Hashima', '9374827384',NULL, 'F', '1971-11-04', 'Drishyam, Khufiya'),
+('ACT005', 'Ajay', 'Devgan', '9329428192', NULL, 'M', '1978-09-26', 'Drishyam, Singham, Golmaal, All the best, Bol Bachhan'),
+('ACT006', 'Parineeti', 'Chopra', '8394829384',NULL, 'F', '1988-10-22', 'Hasi Toh Phasi, Girl on the train, meri pyaari bindu, Shuddh Desi Romance'),
+('ACT008', 'Sanjay', 'Dutt', '8394728394',NULL, 'M', '1959-07-29', 'Bhoomi, Munna Bhai MBBS, All the best'),
+('ACT007','Aditi Rao','Hydari','8738499920',NULL,'F', '1986-10-08','Bhoomi, Girl on the train, Murder 3, Rockstar'),
+('ACT009','Alia','Bhatt','9538475928',NULL,'F','1993-03-15','Student of the year, 2 States, Raazi, Gangubai, Brahmastra, Kapoor and sons, Dear Zindagi');
+
+
+
+ALTER TABLE `actor` ADD COLUMN `age` INT;
+
+-- Create a procedure to calculate and update the age for all actors
+DELIMITER //
+CREATE PROCEDURE CalculateAndUpdateAllActorAges()
+BEGIN
+    DECLARE actorIdVar VARCHAR(10);
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cur CURSOR FOR SELECT actor_id FROM actor;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN cur;
+
+    ageCalculation: LOOP
+        FETCH cur INTO actorIdVar;
+        IF done THEN
+            LEAVE ageCalculation;
+        END IF;
+
+        -- Calculate age
+        UPDATE actor
+        SET age = YEAR(CURDATE()) - YEAR(dob)
+        WHERE actor_id = actorIdVar;
+    END LOOP;
+
+    CLOSE cur;
+END;
+//
+DELIMITER ;
+CALL CalculateAndUpdateAllActorAges();
+
+
 
     create table `director` (
     `dir_id` varchar(10) not null,
@@ -65,8 +100,8 @@ INSERT INTO `movie` VALUES
 ('M003','DIR03', 'Drishyam', 'Thriller', 143, '2015-07-31', 'Desperate measures are taken by a man who tries to save his family from the dark side of the law after they commit an unexpected crime.'),
 ('M004','DIR04', 'Girl on the train', 'Suspense', 120, '2021-02-16', 'The story follows a woman who spends her daily commute fantasizing about a seemingly perfect couple who live in a house that her train passes daily, but something shocking happens there one day.'),
 ('M005','DIR05','Bhoomi','Drama',134,'2020-09-21','A single father battles injustice for his daughter when the perpetrators are found not guilty. Both father and daughter embar on a journey to restore their glory.'),
-('M006','DIR06','2 States','Comedy',140,'2014-03-18',' This movie chronicles how Chetan met his wife and the difficulties they faced due to their cultural differences.They decide not to get married until they convince their parents');
-
+('M006','DIR06','2 States','Comedy',140,'2014-03-18',' This movie chronicles how Chetan met his wife and the difficulties they faced due to their cultural differences.They decide not to get married until they convince their parents'),
+('M007','DIR06','MOVIE','GENRE',120,'2017-08-08','PLOT FOR THE MOVIE');
 create table `production_house` (
     `prod_id` varchar(10) not null,
 	`prod_name` char(30) not null,
@@ -133,6 +168,7 @@ create table `production_house` (
     
     insert into `sponsered_by` values ('S001','P001'),('S002','P002'),('S003','P003'),('S004','P004'),('S005','P005');
     
+    
     create table `rank` (
     `actor_id` varchar(10) not null,
     `singing` int not null,
@@ -151,7 +187,18 @@ INSERT INTO `rank` VALUES
 ('ACT004', 9, 7, 8, 6, 6, 7),
 ('ACT005', 8, 8, 7, 7, 8, 7),
 ('ACT006', 7, 7, 8, 7, 6, 8),
-('ACT007', 8, 6, 7, 8, 7, 7);
+('ACT007', 8, 6, 7, 8, 7, 7),
+('ACT008', 8,7,6,8,6,8),
+('ACT009', 7,9,8,6,9,7);
+
+-- aggregate queries
+UPDATE actor a
+JOIN (
+    SELECT actor_id, AVG((singing + dancing + fighting + instrument_playing + modelling + porducing) / 6) AS avg_rank
+    FROM `rank`
+    GROUP BY actor_id
+) r ON a.actor_id = r.actor_id
+SET a.ratings = r.avg_rank;
 
     
     create table `makeup_artist` (
@@ -187,7 +234,7 @@ INSERT INTO `rank` VALUES
     primary key(`d_id`),
 	CONSTRAINT `fk_designer_actor` FOREIGN KEY (`actor_id`) REFERENCES `actor` (`actor_id`) ON DELETE CASCADE);
     
-    INSERT INTO `designer` VALUES
+INSERT INTO `designer` VALUES
 ('D001', 'ACT001', 'Olivia', 'White', '1234567890', '1985-07-20', 'Fashion designing', 8),
 ('D002', 'ACT002', 'Nathan', 'Clark', '9876543210', '1988-03-12', 'Costume design', 7),
 ('D003', 'ACT003', 'Sophia', 'Anderson', '5555555555','1980-09-02', 'Theater and stage costumes', 9),
@@ -197,7 +244,7 @@ INSERT INTO `rank` VALUES
 ('D007', 'ACT007', 'Zoe', 'Rodriguez', '6666666666', '1990-09-05', 'Red carpet fashion', 7);
 
     
-    create table `specialization` (
+create table `specialization` (
     `artist_id` varchar(10) not null,
     `specialization` char(40) not null,
     primary key(`artist_id`,`specialization`),
@@ -207,7 +254,7 @@ INSERT INTO `rank` VALUES
                                         ('MUA001','traditional makeup'),('MUA001','90s makeup'),('MUA001','special effects makeup'),
                                         ('MUA001','red carpet makeup');
                                   
-    CREATE TABLE `theatre` (
+CREATE TABLE `theatre` (
     `t_id` varchar(10) not null,
      `mov_id` varchar(20) not null,
     `date_of_release` date not null,
@@ -215,16 +262,8 @@ INSERT INTO `rank` VALUES
     `ratings` int default null,
     primary key(`t_id`,`mov_id`,`date_of_release`),
     constraint `fk_mov_theatre` foreign key (`mov_id`) references `movie` (`mov_id`) on delete cascade);
-   DELIMITER //
-
-
-INSERT INTO `theatre` (`t_id`, `mov_id`, `date_of_release`, `t_location`, `ratings`) VALUES
-('T001', 'M001', '2017-05-19', 'Downtown Cinemas', 4),
-('T002', 'M002', '2014-10-02', 'CityPlex Theater', 4),
-('T003', 'M003', '2015-07-31', 'Starlight Multiplex', 3),
-('T004', 'M004', '2021-02-16', 'Sunset Cinema', 3),
-('T005', 'M005', '2020-09-21', 'MegaMax Theatres', 4);
-
+    
+DELIMITER //
 CREATE TRIGGER `check_date_match`
 BEFORE INSERT ON `theatre`
 FOR EACH ROW
@@ -240,9 +279,16 @@ END;
 //
 DELIMITER ; 
 
+INSERT INTO `theatre` (`t_id`, `mov_id`, `date_of_release`, `t_location`, `ratings`) VALUES
+('T001', 'M001', '2017-05-19', 'Downtown Cinemas', 4),
+('T002', 'M002', '2014-10-02', 'CityPlex Theater', 4),
+('T003', 'M003', '2015-07-31', 'Starlight Multiplex', 3),
+('T004', 'M004', '2021-02-16', 'Sunset Cinema', 3),
+('T005', 'M005', '2020-09-21', 'MegaMax Theatres', 4),
+('T006','M007','2017-08-08','THEATRE',5);
 
   
-    create table `IMDB_website` (
+create table `IMDB_website` (
     `web_ip` varchar(20) not null,
     `email_id` varchar(30) not null,
     `contact_no` varchar(10) not null,
@@ -252,7 +298,7 @@ DELIMITER ;
     `t_id` varchar(10) not null,
     primary key(`web_ip`,`email_id`,`name`));
    
-    INSERT INTO `IMDB_website` VALUES
+INSERT INTO `IMDB_website` VALUES
 ('192.168.1.100', 'info@example.com', '1234567890', 4, 'Downtown Cinemas', 'M001', 'T001'),
 ('192.168.1.101', 'contact@imdb.com', '9876543210', 4, 'CityPlex Theater', 'M002', 'T002'),
 ('192.168.1.102', 'support@example.com', '5555555555', 3, 'Starlight Multiplex', 'M003', 'T003'),
@@ -265,18 +311,51 @@ DELIMITER ;
     create table `ticket` (
     `ticket_id` varchar(10) not null,
     `t_id` varchar(10) not null,
+    `mov_id` varchar(10) not null,
     `price` int not null,
     `seat_no` int not null,
-    `time` time not null, /* check if time datatype is ok*/
+    `time` time not null, 
     primary key(`ticket_id`),
-    constraint `fk_ticket_theatre` foreign key(`t_id`) references `theatre`(`t_id`) on delete cascade);
+    constraint `fk_ticket_theatre` foreign key(`t_id`) references `theatre`(`t_id`) on delete cascade,
+    constraint `fk_ticket_movie` foreign key(`mov_id`) references `movie`(`mov_id`) on delete cascade);
     
-   INSERT INTO `ticket` (`ticket_id`, `t_id`, `price`, `seat_no`, `time`) VALUES
-('TKT001', 'T001', 10, 1, '15:00:00'),
-('TKT002', 'T002', 12, 2, '16:30:00'),
-('TKT003', 'T003', 11, 3, '18:15:00'),
-('TKT004', 'T004', 13, 4, '19:45:00'),
-('TKT005', 'T005', 14, 5, '21:00:00');
+INSERT INTO `ticket` (`ticket_id`, `t_id`,`mov_id`, `price`, `seat_no`, `time`) VALUES
+('TKT001', 'T001','M001', 10, 10, '15:00:00'),
+('TKT002', 'T002','M002', 12, 20, '16:30:00'),
+('TKT003', 'T003','M003', 11, 30, '18:15:00'),
+('TKT004', 'T004','M004', 13, 40, '19:45:00'),
+('TKT005', 'T005','M005',14, 50, '21:00:00');
+
+
+DELIMITER //
+
+DELIMITER //
+CREATE FUNCTION CalculateTotalRevenue(movID VARCHAR(10))
+RETURNS INT
+READS SQL DATA
+BEGIN
+    DECLARE totalRevenue INT;
+
+    -- Calculate total revenue for the ticket
+    SELECT price * seat_no INTO totalRevenue
+    FROM ticket
+    WHERE mov_id = movID;
+
+    -- Return the calculated total revenue
+    RETURN totalRevenue;
+END;
+//
+DELIMITER ;
+
+alter table movie add column popularity int;
+-- Update the popularity column in the movie table for each movie
+UPDATE movie AS m
+SET popularity = (
+    SELECT CalculateTotalRevenue(t.ticket_id)
+    FROM ticket AS t
+    WHERE m.mov_id = t.mov_id
+);
+
 
 
     
@@ -302,27 +381,49 @@ DELIMITER ;
 
 
     
-    CREATE TABLE `budget` (
+   CREATE TABLE `budget` (
     `b_id` varchar(10) not null,
     `mov_id` varchar(10) not null,
     `expenditure` int not null,
     `profit` int not null,
-    `status` enum('HIT','AVG','FLOP'),
-    primary key(`b_id`),
-    constraint `check_status` check (
-        (status = 'HIT' and profit > expenditure) OR
-        (status = 'FLOP' and profit < expenditure) OR
-        (status = 'AVG' and profit = expenditure)
-    )
+    `status` ENUM('HIT', 'FLOP', 'AVG') null,  
+    primary key(`b_id`)
 );
+
+DELIMITER //
+CREATE PROCEDURE CheckMoviePerformance(IN movID VARCHAR(10), OUT performance VARCHAR(10))
+BEGIN
+    DECLARE totalRevenue INT;
+    DECLARE totalSpending INT;
+
+    -- Calculate total revenue for the movie
+    SELECT SUM(price * seat_no) INTO totalRevenue
+    FROM ticket
+    WHERE mov_id = movID;
+
+    -- Calculate total spending for the movie from the budget table
+    SELECT expenditure INTO totalSpending
+    FROM budget
+    WHERE mov_id = movID;
+
+    -- Compare revenue and spending to determine performance
+    IF totalRevenue >= totalSpending THEN
+        SET performance = 'hit';
+    ELSE
+        SET performance = 'flop';
+    END IF;
+END;
+//
+DELIMITER ;
+
 INSERT INTO `budget` VALUES
-('B001', 'M001', 60000000, 100000000, 'HIT'),
-('B002', 'M002', 40000000, 60000000, 'HIT'),
-('B003', 'M003', 30000000, 25000000, 'FLOP'),
-('B004', 'M004', 75000000, 80000000, 'HIT'),
-('B005', 'M005', 80000000, 60000000, 'FLOP'),
-('B006', 'M006', 45000000, 45000000, 'AVG'),
-('B007', 'M007', 55000000, 55000000, 'AVG');
+('B001', 'M001', 6000, 1000,NULL),
+('B002', 'M002', 4000, 6000, NULL),
+('B003', 'M003', 3000, 25000, NULL),
+('B004', 'M004', 7500, 8000, NULL),
+('B005', 'M005', 8000, 60000, NULL),
+('B006', 'M006', 4500, 45000, NULL),
+('B007', 'M007', 5500, 50000, NULL);
 
     
     
@@ -337,6 +438,19 @@ INSERT INTO `budget` VALUES
     `works` varchar(200) default null,
     primary key(`writer_id`));
     
+    DELIMITER //
+CREATE TRIGGER before_insert_writer
+BEFORE INSERT ON `writer`
+FOR EACH ROW
+BEGIN
+
+    IF NEW.ratings IS NULL THEN
+        SET NEW.ratings = 7;
+    END IF;
+END;
+//
+DELIMITER ;
+
    INSERT INTO `writer` VALUES
 ('W001', 'Chetan', 'Bhagat', '9994859948', 9.8, 'M', '1974-04-22', 'Half-girlfriend, one indian girl, story of my marriage'),
 ('W002', 'William', 'Shakespeare', NULL, NULL, 'M', '1515-02-11', 'Hamlet, Romeo-Juliet, Macbeth'),
@@ -385,8 +499,8 @@ insert into `image_list` values('ACT001','sharaddhakapoor.jpg'),
 ('M005','bhoomi.jpg'),('B001','hgf_book.jpg'),('B002','hamlet.jpg'),('B003','tdos.jpg'),
 ('B004','gottbook.jpg'),('B005','bhoomibook.jpg'),('B006','2statesbook.jpg'),('W001','chetan.jpg'),
 ('W002','shakespear.jpg'),('W003','keigo.jpg'),('W004','paula.jpg'),('W005','santosh.jpg'),
-('DIR001','mohitsuri.jpg'),('DIR002','vishalbharadwaj.jpg'),('DIR003','nishantkamat.jpg'),('DIR004','ribhudas.jpg'),
-('DIR005','umangkumar.jpg'),('DIR006','AbhishekVerma.jpg');
+('DIR01','mohitsuri.jpg'),('DIR02','vishalbharadwaj.jpg'),('DIR03','nishantkamat.jpg'),('DIR04','ribhudas.jpg'),
+('DIR05','umangkumar.jpg'),('DIR06','AbhishekVerma.jpg');
 
 create table `accounts`(
 `email` varchar(30) not null,
@@ -394,6 +508,9 @@ create table `accounts`(
 `password` varchar(30) not null,
 `auth` varchar(10) not null
 );
+
 insert into `accounts` values('admin@gmail.com','admin','admin','admin'),
 ('user@gmail.com','user','user','user');
+
+CREATE TABLE IF NOT EXISTS Images (id INTEGER PRIMARY KEY,image LONGBLOB);
     

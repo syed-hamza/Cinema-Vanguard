@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'veeru*15J69',
+    password: 'Regal@301',
     database: 'cinema'
 });
 // Configure Handlebars
@@ -182,7 +182,25 @@ app.get('/sqlimages/:id', (req, res) => {
         }
     });
 });
-
+app.get('/sqlblob/:path', (req, res) => {
+    const path = req.params.path;
+    query = `SELECT * FROM images WHERE id = '${path}'`;  // Use placeholders instead of string interpolation   
+    connection.query(query, (err, results) =>{
+        if (err) {
+          console.error('Error fetching data from the database:', err);
+          res.status(500).json({ error: 'Error fetching data from the database' });
+        } else {
+          if (results.length > 0) {
+            const imageData = results[0].image;
+            // Sending image data as response
+            res.writeHead(200, { 'Content-Type': 'image/jpeg' });
+            res.end(imageData, 'binary');
+          } else {
+            res.status(404).json({ error: 'Image not found' });
+          }
+        }
+      });
+    });
 app.get('/sqlquery/:query', (req, res) => {
     const query = req.params.query;// Use placeholders instead of string interpolation   
     connection.query(query, (err, results) => {
